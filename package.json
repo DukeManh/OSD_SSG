@@ -1,0 +1,33 @@
+{
+  "name": "osd_ssg",
+  "version": "0.1.0",
+  "description": "Static site generator cli",
+  "main": "./lib/index.js",
+  "bin": {
+    "osd-ssg": "./lib/index.js"
+  },
+  
+  "scripts": {
+    "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
+    "create": "npm run build && npm run test",
+    "build": "tsc -p .",
+    "local": "sudo npm i -g && osd-ssg",
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DukeManh/OSD_SSG.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DukeManh/OSD_SSG/issues"
+  },
+  "homepage": "https://github.com/DukeManh/OSD_SSG#readme",
+  "devDependencies": {
+    "@types/node": "^16.7.13",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  }
+}
