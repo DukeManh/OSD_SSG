@@ -1,0 +1,15 @@
+package.json/
+package-lock.json.
+node_modules/
+coverage/
+certs
+.cache
+**/.eslintignore
+**/.prettierignore
+**/.firebaserc
+**/.gitignore
+**/*.eot
+**/*.svg
+**/*.ttf
+**/*.woff
+**/*.woff2

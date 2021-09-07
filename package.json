@@ -6,13 +6,15 @@
   "bin": {
     "osd-ssg": "./lib/index.js"
   },
-  
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "create": "npm run build && npm run test",
     "build": "tsc -p .",
     "local": "sudo npm i -g && osd-ssg",
-    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install"
+    "refresh": "rm -rf ./node_modules ./package-lock.json && npm install",
+    "lint": "npm run eslint \"src/**/*.ts\"",
+    "eslint": "eslint --max-warnings 0",
+    "prettier": "prettier --write \"src/**/*.{md,jsx,tsx,ts,json,html,css,js,yml}\""
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,15 @@
   "homepage": "https://github.com/DukeManh/OSD_SSG#readme",
   "devDependencies": {
     "@types/node": "^16.7.13",
+    "@typescript-eslint/eslint-plugin": "^4.31.0",
+    "@typescript-eslint/parser": "^4.31.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.12",
+    "prettier": "^2.3.2",
     "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   }
