@@ -26,5 +26,6 @@ module.exports = {
     'prefer-arrow-callback': 'warn',
     'no-unused-vars': 'warn',
     'no-nested-ternary': 'off',
+    'no-empty': 'off',
   },
 };
