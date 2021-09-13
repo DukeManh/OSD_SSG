@@ -207,7 +207,7 @@ if (inputPath.isFile()) {
         <title>${path.basename(input)}</title>
         </head>
         <body>
-          <h1>${input}</h1>
+          <h1>${path.basename(input)}</h1>
           <ul>
             ${dists
               .map(
