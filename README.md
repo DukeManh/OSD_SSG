@@ -4,20 +4,36 @@
 
 > An *SSG* is a tool for generating a complete HTML web site from raw data and files, without having to author any HTML by hand. Imagine that you have a folder of text files that you want to turn into a website. An SSG allows you to enter a simple command that creates .html output files from a given set of input files.
 
+## Demo
 
+[Demo](https://dukemanh.github.io/OSD_SSG/demo/)
 
-## Roadmap
+## Options
 
-  1. Release 0.1 Fri, Sept 17
-  2. Release 0.2 Sun, Oct 31
-  3. Release 0.3 Fri, Nov 19
-  4. Release 0.4 Mon, Dec 13
+```
+Options:
+  -i, --input       File or folder to be parsed              [string] [required]
+  -o, --output      Output folder for generated files [string] [default: "dist"]
+  -r, --recursive   Recursively parsed files                           [boolean]
+  -e, --relative    Maintain relative folder of files                  [boolean]
+  -s, --stylesheet  Custom stylesheet                                   [string]
+  -h, --help        Show help                                          [boolean]
+  -v, --version     Show version number                                [boolean]
+```
+
+## Example
+```
+ts-node src/index.ts -i Sherlock\ Holmes\ Selected\ Stories\ / -r -e -s src/styles/retro.css 
+```
+
 
   
+
 ## Authors
 
-- [@DukeManh](https://www.github.com/dukemanh)
+- [@Dukemanh](https://www.github.com/dukemanh)
 
+  
 ## License
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
