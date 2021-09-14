@@ -1,5 +1,5 @@
 /*
-https://github.com/markdowncss/splendor
+https://github.com/markdowncss/retro
 
 The MIT License (MIT)
 
@@ -23,6 +23,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
+pre,
+code {
+  font-family: Menlo, Monaco, 'Courier New', monospace;
+}
+
+pre {
+  padding: 0.5rem;
+  line-height: 1.25;
+  overflow-x: scroll;
+}
+
 @media print {
   *,
   *:before,
@@ -83,6 +95,21 @@ THE SOFTWARE.
   }
 }
 
+a,
+a:visited {
+  color: #01ff70;
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: #2ecc40;
+}
+
+.retro-no-decoration {
+  text-decoration: none;
+}
+
 html {
   font-size: 12px;
 }
@@ -104,57 +131,57 @@ body {
 }
 
 p,
-.splendor-p {
+.retro-p {
   font-size: 1rem;
   margin-bottom: 1.3rem;
 }
 
 h1,
-.splendor-h1,
+.retro-h1,
 h2,
-.splendor-h2,
+.retro-h2,
 h3,
-.splendor-h3,
+.retro-h3,
 h4,
-.splendor-h4 {
+.retro-h4 {
   margin: 1.414rem 0 0.5rem;
   font-weight: inherit;
   line-height: 1.42;
 }
 
 h1,
-.splendor-h1 {
+.retro-h1 {
   margin-top: 0;
   font-size: 3.998rem;
 }
 
 h2,
-.splendor-h2 {
+.retro-h2 {
   font-size: 2.827rem;
 }
 
 h3,
-.splendor-h3 {
+.retro-h3 {
   font-size: 1.999rem;
 }
 
 h4,
-.splendor-h4 {
+.retro-h4 {
   font-size: 1.414rem;
 }
 
 h5,
-.splendor-h5 {
+.retro-h5 {
   font-size: 1.121rem;
 }
 
 h6,
-.splendor-h6 {
+.retro-h6 {
   font-size: 0.88rem;
 }
 
 small,
-.splendor-small {
+.retro-small {
   font-size: 0.707em;
 }
 
@@ -170,100 +197,30 @@ textarea {
   max-width: 100%;
 }
 
-@import url(http://fonts.googleapis.com/css?family=Merriweather:300italic,300);
+html,
+body {
+  background-color: #222;
+  min-height: 100%;
+}
 
 html {
   font-size: 18px;
-  max-width: 100%;
 }
 
 body {
-  color: #444;
-  font-family: 'Merriweather', Georgia, serif;
-  margin: 0;
-  max-width: 100%;
-}
-
-/* === A bit of a gross hack so we can have bleeding divs/blockquotes. */
-
-p,
-*:not(div):not(img):not(body):not(html):not(li):not(blockquote):not(p) {
-  margin: 1rem auto 1rem;
-  max-width: 36rem;
+  color: #fafafa;
+  font-family: 'Courier New';
+  line-height: 1.45;
+  margin: 6rem auto 1rem;
+  max-width: 48rem;
   padding: 0.25rem;
 }
 
-div {
-  width: 100%;
-}
-
-div img {
-  width: 100%;
-}
-
-blockquote p {
-  font-size: 1.5rem;
-  font-style: italic;
-  margin: 1rem auto 1rem;
-  max-width: 48rem;
-}
-
-li {
-  margin-left: 2rem;
-}
-
-/* Counteract the specificity of the gross *:not() chain. */
-
-h1 {
-  padding: 4rem 0 !important;
-}
-
-/*  === End gross hack */
-
-p {
-  color: #555;
-  height: auto;
-  line-height: 1.45;
-}
-
-pre,
-code {
-  font-family: Menlo, Monaco, 'Courier New', monospace;
-}
-
 pre {
-  background-color: #fafafa;
-  font-size: 0.8rem;
-  overflow-x: scroll;
-  padding: 1.125em;
+  background-color: #333;
 }
 
-a,
-a:visited {
-  color: #3498db;
-}
-
-a:hover,
-a:focus,
-a:active {
-  color: #2980b9;
-}
-
-.backToHome {
-  display: block;
-  margin: 1.5rem auto;
-  text-align: center;
-}
-
-.text-center {
-  text-align: center;
-}
-
-h1 + p::first-letter {
-  display: block;
-  font-size: 3rem;
-  font-weight: bold;
-  line-height: 80%;
-  padding: 3px;
-  float: left;
+blockquote {
+  border-left: 3px solid #01ff70;
+  padding-left: 1rem;
 }

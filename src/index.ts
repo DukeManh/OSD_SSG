@@ -107,12 +107,18 @@ const processFile = (filePath: string, isIndex: boolean): string => {
   const head = `<meta charset="UTF-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="index.css"> 
+                <link rel="stylesheet" href="${
+                  path.relative(path.dirname(filePath), input) || './'
+                }/index.css"> 
                 <title>${title}</title>`;
 
-  // Regex replace “” with <blockquote>match</blockquote>
   const body = `
-                ${!isIndex && `<a class="backToHome" href="index.html">Back to home</a>`}
+                ${
+                  !isIndex &&
+                  `<a class="backToHome" href="${
+                    path.relative(path.dirname(filePath) || './', input) || './'
+                  }/index.html">Back to home</a>`
+                }
                 <h1 class="text-center">${title}</h1>
                 ${content
                   .replace(/^“((.|\n)*?)”/gm, `<q>$1</q>`)
