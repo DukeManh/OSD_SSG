@@ -110,7 +110,7 @@ const processFile = (filePath: string, isIndex: boolean): string => {
                 <link rel="stylesheet" href="${
                   path.relative(path.dirname(filePath), input) || './'
                 }/index.css"> 
-                <title>${title}</title>`;
+                <title>${title || path.basename(filePath, '.txt')}</title>`;
 
   const body = `
                 ${
@@ -120,7 +120,7 @@ const processFile = (filePath: string, isIndex: boolean): string => {
                       }/index.html">Back to home</a>`
                     : ''
                 }
-                <h1 class="text-center">${title}</h1>
+                ${title ? `<h1 class="text-center">${title}</h1>` : ''}
                 ${content
                   .split(/\r?\n\r?\n/)
                   .map((para) => `<p>${para.replace(/\r?\n/, ' ')}</p>`)
