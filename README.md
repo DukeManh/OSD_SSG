@@ -22,6 +22,15 @@ Options:
 ```
 
 ## Example
+
+Install `ts-node` with:
+
+```
+npm install -g ts-node
+```
+
+exe
+
 ```
 ts-node src/index.ts -i Sherlock\ Holmes\ Selected\ Stories\ / -r -e -s src/styles/retro.css 
 ```
