@@ -114,10 +114,11 @@ const processFile = (filePath: string, isIndex: boolean): string => {
 
   const body = `
                 ${
-                  !isIndex &&
-                  `<a class="backToHome" href="${
-                    path.relative(path.dirname(filePath) || './', input) || './'
-                  }/index.html">Back to home</a>`
+                  !isIndex
+                    ? `<a class="backToHome" href="${
+                        path.relative(path.dirname(filePath) || './', input) || './'
+                      }/index.html">Back to home</a>`
+                    : ''
                 }
                 <h1 class="text-center">${title}</h1>
                 ${content
@@ -187,7 +188,7 @@ let inputPath;
 try {
   inputPath = fs.statSync(input);
 } catch {
-  logError(`'${input}' is either a file or directory`);
+  logError(`${input}: No such file or directory`);
   fs.readdirSync(output);
   process.exit(1);
 }
@@ -231,6 +232,6 @@ if (inputPath.isFile()) {
 
   fs.writeFileSync(`${output}/index.html`, indexMarkup, { flag: 'w' });
 } else {
-  logError(`${input} is either a file or directory`);
+  logError(`${input}: No such file or directory`);
   process.exit(1);
 }
