@@ -121,7 +121,6 @@ const processFile = (filePath: string, isIndex: boolean): string => {
                 }
                 <h1 class="text-center">${title}</h1>
                 ${content
-                  .replace(/^“((.|\n)*?)”/gm, `<q>$1</q>`)
                   .split(/\r?\n\r?\n/)
                   .map((para) => `<p>${para.replace(/\r?\n/, ' ')}</p>`)
                   .join('\n')}
