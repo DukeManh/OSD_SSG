@@ -235,3 +235,9 @@ if (inputPath.isFile()) {
   logError(`${input}: No such file or directory`);
   process.exit(1);
 }
+
+const input_dir_entries: any[] = [];
+
+input_dir_entries.reduce((acc, file) => {
+  return acc;
+}, []);
