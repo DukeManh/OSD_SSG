@@ -85,10 +85,7 @@ if (stylesheet) {
  */
 const processH1Markdown = (data: string[]): string[] => {
   return data.map((text) => {
-    if (text.indexOf('# ') !== -1) {
-      if (text.substr(0, 2) === '# ') return `<h1>${text.substr(2)}</h1>`;
-    }
-    return `${text}`;
+    return text.replace(/^# (.*$)/gi, '<h1>$1</h1>');
   });
 };
 
@@ -99,10 +96,7 @@ const processH1Markdown = (data: string[]): string[] => {
  */
 const processH2Markdown = (data: string[]): string[] => {
   return data.map((text) => {
-    if (text.indexOf('## ') !== -1) {
-      if (text.substr(0, 3) === '## ') return `<h2>${text.substr(3)}</h2>`;
-    }
-    return `${text}`;
+    return text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
   });
 };
 
@@ -113,9 +107,8 @@ const processH2Markdown = (data: string[]): string[] => {
  */
 const processPMarkdown = (data: string[]): string[] => {
   return data.map((text) => {
-    if (text.substr(0, 1) !== '<' && text.substr(text.length - 1, 1) !== '>')
-      return `<p>${text}</p>`;
-    return `${text}`;
+    if (text.substr(0, 1) !== '<' && text.substr(text.length - 1) !== '>') return `<p>${text}</p>`;
+    return text;
   });
 };
 
@@ -165,7 +158,7 @@ const processFile = (filePath: string, isIndex: boolean): string => {
                 <link rel="stylesheet" href="${
                   path.relative(path.dirname(filePath), input) || './'
                 }/index.css"> 
-                <title>${title || path.basename(filePath, isMd ? '.md' : '.txt')}</title>`;
+                <title>${title || path.parse(filePath).name}</title>`;
 
   const body = `
                 ${
@@ -220,7 +213,7 @@ const generateHTMLs = (pathName: string): string[] => {
           const relativeFolder = relative ? `/${path.relative(input, path.dirname(filePath))}` : '';
           const dist = `${output}${relativeFolder}/${path.basename(
             filePath,
-            path.extname(filePath).toLocaleLowerCase() === '.txt' ? '.txt' : '.md'
+            path.extname(filePath)
           )}.html`;
 
           fs.ensureFileSync(dist);
@@ -264,14 +257,9 @@ if (inputPath.isFile()) {
     logError('Input file must be .txt or .md');
   }
 
-  fs.writeFileSync(
-    `${output}/${path.basename(
-      input,
-      path.extname(input).toLocaleLowerCase() === '.txt' ? '.txt' : '.md'
-    )}.html`,
-    markup,
-    { flag: 'w' }
-  );
+  fs.writeFileSync(`${output}/${path.basename(input, path.extname(input))}.html`, markup, {
+    flag: 'w',
+  });
 } else if (inputPath.isDirectory()) {
   const dists = generateHTMLs(input);
 
