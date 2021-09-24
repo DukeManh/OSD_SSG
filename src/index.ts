@@ -79,24 +79,16 @@ if (stylesheet) {
 }
 
 /**
- * Process markdown for H1 (e.g: # headhing 1)
+ * Process markdown for heading 1-6
  * @param data Data to be processed
  * @return return array where h1 markdown is processed
  */
-const processH1Markdown = (data: string[]): string[] => {
+const processHeadingMarkdown = (data: string[]): string[] => {
   return data.map((text) => {
-    return text.replace(/^# (.*$)/gi, '<h1>$1</h1>');
-  });
-};
-
-/**
- * Process markdown for H2 (e.g: ## headhing 2)
- * @param data Data to be processed
- * @return return array where h2 markdown is processed
- */
-const processH2Markdown = (data: string[]): string[] => {
-  return data.map((text) => {
-    return text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+    return text.replace(/^\s*(#{1,6})\s+(.+)$/gm, (match, hash, title) => {
+      const tag = `h${hash.length}`;
+      return `<${tag}>${title}</${tag}>`;
+    });
   });
 };
 
@@ -114,14 +106,13 @@ const processPMarkdown = (data: string[]): string[] => {
 
 /**
  * Process markdown
- * It only support markdown for H1, H2, and P
+ * It only support markdown for heading 1-6, and P
  * @param data Data to be processed
  * @return return array of HTML
  */
 const processMarkdown = (data: string[]): string[] => {
   let treatedDataList: string[] = [];
-  treatedDataList = processH1Markdown(data);
-  treatedDataList = processH2Markdown(treatedDataList);
+  treatedDataList = processHeadingMarkdown(data);
   treatedDataList = processPMarkdown(treatedDataList);
   return treatedDataList;
 };
