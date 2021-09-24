@@ -23,7 +23,7 @@ Options:
 
 ## Features
 
-- Accept .txt and .md files (Currently .md only support h1(`# heading 1`), h2(`## heading 2`), and p)
+- Accept .txt and .md files (Currently .md only support heading h1-h6, and p)
 
 ## Example
 
