@@ -21,6 +21,10 @@ Options:
   -v, --version     Show version number                                [boolean]
 ```
 
+## Features
+
+- Accept .txt and .md files (Currently .md only support heading h1-h6, and p)
+
 ## Example
 
 Install `ts-node` with:
@@ -32,18 +36,13 @@ npm install -g ts-node
 exe
 
 ```
-ts-node src/index.ts -i Sherlock\ Holmes\ Selected\ Stories\ / -r -e -s src/styles/retro.css 
+ts-node src/index.ts -i Sherlock\ Holmes\ Selected\ Stories\ / -r -e -s src/styles/retro.css
 ```
-
-
-  
 
 ## Authors
 
 - [@Dukemanh](https://www.github.com/dukemanh)
 
-  
 ## License
 
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-

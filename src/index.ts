@@ -79,6 +79,45 @@ if (stylesheet) {
 }
 
 /**
+ * Process markdown for heading 1-6
+ * @param data Data to be processed
+ * @return return array where h1 markdown is processed
+ */
+const processHeadingMarkdown = (data: string[]): string[] => {
+  return data.map((text) => {
+    return text.replace(/^\s*(#{1,6})\s+(.+)$/gm, (match, hash, title) => {
+      const tag = `h${hash.length}`;
+      return `<${tag}>${title}</${tag}>`;
+    });
+  });
+};
+
+/**
+ * Process markdown for P
+ * @param data Data to be processed
+ * @return return array where p markdown is processed
+ */
+const processPMarkdown = (data: string[]): string[] => {
+  return data.map((text) => {
+    if (text.substr(0, 1) !== '<' && text.substr(text.length - 1) !== '>') return `<p>${text}</p>`;
+    return text;
+  });
+};
+
+/**
+ * Process markdown
+ * It only support markdown for heading 1-6, and P
+ * @param data Data to be processed
+ * @return return array of HTML
+ */
+const processMarkdown = (data: string[]): string[] => {
+  let treatedDataList: string[] = [];
+  treatedDataList = processHeadingMarkdown(data);
+  treatedDataList = processPMarkdown(treatedDataList);
+  return treatedDataList;
+};
+
+/**
  * Generate HTML mark up from .txt file
  * @param fileName File to be parsed
  * @param isIndex If false, add `Back to home` link to index page
@@ -86,17 +125,17 @@ if (stylesheet) {
  */
 const processFile = (filePath: string, isIndex: boolean): string => {
   const extension = path.extname(filePath).toLowerCase();
-  if (extension !== '.txt') {
+  if (extension !== '.txt' && extension !== '.md') {
     return '';
   }
 
+  const isMd = extension === '.md';
   const text = fs.readFileSync(filePath, 'utf-8');
 
   // title is before the first 2 blank lines of the text
   const titleAndContent = text.split(/\n\n\n/);
   let title = '';
   let content = '';
-
   if (titleAndContent.length >= 2) {
     [title] = titleAndContent;
     content = titleAndContent.slice(1).join('\n\n\n');
@@ -110,7 +149,7 @@ const processFile = (filePath: string, isIndex: boolean): string => {
                 <link rel="stylesheet" href="${
                   path.relative(path.dirname(filePath), input) || './'
                 }/index.css"> 
-                <title>${title || path.basename(filePath, '.txt')}</title>`;
+                <title>${title || path.parse(filePath).name}</title>`;
 
   const body = `
                 ${
@@ -121,10 +160,17 @@ const processFile = (filePath: string, isIndex: boolean): string => {
                     : ''
                 }
                 ${title ? `<h1 class="text-center">${title}</h1>` : ''}
-                ${content
-                  .split(/\r?\n\r?\n/)
-                  .map((para) => `<p>${para.replace(/\r?\n/, ' ')}</p>`)
-                  .join('\n')}
+                
+                ${
+                  isMd
+                    ? processMarkdown(
+                        content.split(/\r?\n\r?\n/).map((para) => `${para.replace(/\r?\n/g, ' ')}`)
+                      ).join('\n')
+                    : content
+                        .split(/\r?\n\r?\n/)
+                        .map((para) => `<p>${para.replace(/\r?\n/, ' ')}</p>`)
+                        .join('\n')
+                }
                   `;
 
   const markup = `<!DOCTYPE html>
@@ -156,7 +202,10 @@ const generateHTMLs = (pathName: string): string[] => {
         const markup = processFile(filePath, false);
         if (markup) {
           const relativeFolder = relative ? `/${path.relative(input, path.dirname(filePath))}` : '';
-          const dist = `${output}${relativeFolder}/${path.basename(filePath, '.txt')}.html`;
+          const dist = `${output}${relativeFolder}/${path.basename(
+            filePath,
+            path.extname(filePath)
+          )}.html`;
 
           fs.ensureFileSync(dist);
           fs.writeFileSync(dist, markup, { flag: 'w' });
@@ -196,10 +245,12 @@ try {
 if (inputPath.isFile()) {
   const markup = processFile(input, true);
   if (!markup) {
-    logError('Input file must be .txt');
+    logError('Input file must be .txt or .md');
   }
 
-  fs.writeFileSync(`${output}/${path.basename(input, '.txt')}.html`, markup, { flag: 'w' });
+  fs.writeFileSync(`${output}/${path.basename(input, path.extname(input))}.html`, markup, {
+    flag: 'w',
+  });
 } else if (inputPath.isDirectory()) {
   const dists = generateHTMLs(input);
 
