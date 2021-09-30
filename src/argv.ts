@@ -64,9 +64,8 @@ const argv = yargs
   .strict()
   .fail((msg, error, args) => {
     console.log(args.help());
-    console.log();
-    logError(error?.message || 'Invalid argument');
-    process.exit(1);
+    logError(error?.message || msg);
+    process.exit(9);
   })
   .help()
   .alias('help', 'h')
