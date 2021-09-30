@@ -96,27 +96,24 @@ let inputPath;
 
 try {
   inputPath = fs.statSync(input);
+  if (inputPath.isFile() || inputPath.isDirectory()) {
+    const fileList = generateFiles(input);
+
+    const menu = `<ul>
+              ${fileList
+                .map(
+                  (file) =>
+                    `<li><a href="${path.relative(output, file)}">${path.parse(file).name}</a></li>`
+                )
+                .join('\n')}
+                </ul>`;
+
+    const indexMarkup = generateHTML(menu, path.basename(input), true, indexCSS);
+    fs.writeFileSync(`${output}/index.html`, indexMarkup, { flag: 'w' });
+  } else {
+    throw new Error();
+  }
 } catch {
-  logError(`${input}: No such file or directory`);
-  fs.readdirSync(output);
-  process.exit(1);
-}
-
-if (inputPath.isFile() || inputPath.isDirectory()) {
-  const fileList = generateFiles(input);
-
-  const menu = `<ul>
-            ${fileList
-              .map(
-                (file) =>
-                  `<li><a href="${path.relative(output, file)}">${path.parse(file).name}</a></li>`
-              )
-              .join('\n')}
-              </ul>`;
-
-  const indexMarkup = generateHTML(menu, path.basename(input), true, indexCSS);
-  fs.writeFileSync(`${output}/index.html`, indexMarkup, { flag: 'w' });
-} else {
   logError(`${input}: No such file or directory`);
   process.exit(1);
 }
