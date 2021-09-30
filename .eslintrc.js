@@ -27,5 +27,13 @@ module.exports = {
     'no-unused-vars': 'warn',
     'no-nested-ternary': 'off',
     'no-empty': 'off',
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        ts: 'never',
+      },
+    ],
   },
 };
