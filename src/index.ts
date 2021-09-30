@@ -12,9 +12,10 @@ const indexCSS = 'styles/index.css';
 
 fs.removeSync(output);
 fs.ensureDirSync(output);
-fs.ensureFileSync(`${output}/${indexCSS}`);
 
-fs.copyFileSync(stylesheet, `${output}/${indexCSS}`);
+fs.ensureFile(`${output}/${indexCSS}`).then(() => {
+  fs.copyFile(stylesheet, `${output}/${indexCSS}`);
+});
 
 /**
  * Generate HTML markup file from a .txt or .md file
@@ -54,7 +55,7 @@ const processFile = (filePath: string): string => {
  * */
 const generateFiles = (pathName: string): string[] => {
   // If path is a file, generate an HTML, if folder, expand the folder
-  const generate = (filePath: string, fileLists: string[]): string[] => {
+  const generate = (filePath: string, fileList: string[]): string[] => {
     try {
       const fileStat = fs.statSync(filePath);
       if (fileStat.isFile()) {
@@ -67,26 +68,26 @@ const generateFiles = (pathName: string): string[] => {
           const file = `${output}${relativePath}${name}.html`;
           logSuccess(file);
 
-          fs.ensureFileSync(file);
-          fs.writeFileSync(file, markup, { flag: 'w' });
-          return fileLists.concat(file);
+          fs.ensureFile(file).then(() => {
+            fs.writeFile(file, markup, { flag: 'w' });
+          });
+          return fileList.concat(file);
         }
-        return fileLists;
+        return fileList;
       }
       if (fileStat.isDirectory()) {
         let files = fs.readdirSync(filePath, { withFileTypes: true });
         files = recursive ? files : files.filter((file) => file.isFile());
 
-        return fileLists.concat(
+        return fileList.concat(
           files
-            .map((file) => generate(path.join(filePath, file.name), fileLists))
+            .map((file) => generate(path.join(filePath, file.name), fileList))
             .reduce((acc, curr) => [...acc, ...curr], [])
         );
       }
-
-      return fileLists;
-    } catch (err) {
-      return fileLists;
+      return fileList;
+    } catch {
+      return fileList;
     }
   };
 
@@ -110,7 +111,7 @@ try {
                 </ul>`;
 
     const indexMarkup = generateHTML(menu, path.basename(input), true, lang, indexCSS);
-    fs.writeFileSync(`${output}/index.html`, indexMarkup, { flag: 'w' });
+    fs.writeFile(`${output}/index.html`, indexMarkup, { flag: 'w' });
   } else {
     throw new Error();
   }
