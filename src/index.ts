@@ -6,7 +6,7 @@ import { processMarkdown, processTxt } from './processFile';
 import generateHTML from './generateHTML';
 import { logError, logSuccess } from './utilities';
 
-const { input, output, recursive, stylesheet, relative } = argv;
+const { input, output, recursive, stylesheet, relative, lang } = argv;
 
 const indexCSS = 'styles/index.css';
 
@@ -39,6 +39,7 @@ const processFile = (filePath: string): string => {
     content,
     title ?? path.parse(filePath).name,
     !isMd,
+    lang,
     `${relativePathToRoot}${indexCSS}`,
     `${relativePathToRoot}index.html`
   );
@@ -114,7 +115,7 @@ if (inputPath.isFile() || inputPath.isDirectory()) {
               .join('\n')}
               </ul>`;
 
-  const indexMarkup = generateHTML(menu, path.basename(input), true, indexCSS);
+  const indexMarkup = generateHTML(menu, path.basename(input), true, lang, indexCSS);
   fs.writeFileSync(`${output}/index.html`, indexMarkup, { flag: 'w' });
 } else {
   logError(`${input}: No such file or directory`);

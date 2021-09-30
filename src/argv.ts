@@ -37,8 +37,22 @@ const argv = yargs
       requiresArg: true,
       default: 'src/styles/index.css',
     },
+    lang: {
+      alias: 'l',
+      describe: 'HTML language code',
+      type: 'string',
+      requiresArg: true,
+      default: 'en-CA',
+    },
   })
-  .check(({ stylesheet }) => {
+  .check(({ lang, stylesheet }) => {
+    if (lang !== 'en-CA') {
+      const htmlLang = /^[a-zA-Z]{2,3}(?:-[a-zA-Z]{2,3})*$/gm;
+
+      if (!htmlLang.test(lang)) {
+        throw new Error('Unsupported HTML language');
+      }
+    }
     if (stylesheet) {
       const file = fs.statSync(stylesheet);
       if (!file.isFile() || path.extname(stylesheet) !== '.css') {
@@ -63,6 +77,7 @@ const argv = yargs
   recursive: boolean;
   relative: boolean;
   stylesheet: string;
+  lang: string;
   _: (string | number)[];
   $0: string;
 };

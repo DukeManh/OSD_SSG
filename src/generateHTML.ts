@@ -2,6 +2,7 @@ const generateHTML = (
   content: string,
   title: string,
   includeHeading: boolean,
+  lang: string,
   stylesheetHref: string,
   homeHref?: string
 ): string => {
@@ -18,7 +19,7 @@ const generateHTML = (
                   `;
 
   const markup = `<!DOCTYPE html>
-                  <html lang="en-CA">
+                  <html lang="${lang}">
                     <head>
                       ${head}
                     </head>
