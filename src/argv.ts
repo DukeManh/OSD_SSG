@@ -67,6 +67,8 @@ const argv = yargs
     logError(error?.message || msg);
     process.exit(9);
   })
+  .config()
+  .alias('config', 'c')
   .help()
   .alias('help', 'h')
   .version()

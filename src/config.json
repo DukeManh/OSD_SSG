@@ -1,0 +1,7 @@
+{
+  "input": "./Sherlock-Holmes-Selected-Stories",
+  "output":"./dist",
+  "lang" : "en-CA",
+  "stylesheet" : "./src/styles/index.css"
+
+}
