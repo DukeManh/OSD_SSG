@@ -2,19 +2,22 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import argv from './argv';
-import { processMarkdown, processTxt } from './processFile';
-import generateHTML from './generateHTML';
+import Parser from './Parser';
+import generateHTML from './generator';
 import { logError, logSuccess } from './utilities';
 
 const { input, output, recursive, stylesheet, relative, lang } = argv;
 
-const indexCSS = 'styles/index.css';
+const indexCSSPath = 'styles/index.css';
 
-fs.removeSync(output);
-fs.ensureDirSync(output);
-fs.ensureFileSync(`${output}/${indexCSS}`);
+const prepare = () => {
+  fs.removeSync(output);
+  fs.ensureDirSync(output);
 
-fs.copyFileSync(stylesheet, `${output}/${indexCSS}`);
+  fs.ensureFile(`${output}/${indexCSSPath}`).then(() => {
+    fs.copyFile(stylesheet, `${output}/${indexCSSPath}`);
+  });
+};
 
 /**
  * Generate HTML markup file from a .txt or .md file
@@ -22,14 +25,15 @@ fs.copyFileSync(stylesheet, `${output}/${indexCSS}`);
  * @return HTML markup, empty if file type is not supported
  */
 const processFile = (filePath: string): string => {
-  const extension = path.extname(filePath).toLowerCase();
-  if (extension !== '.txt' && extension !== '.md') {
+  const fileType = path.extname(filePath).toLowerCase();
+  if (fileType !== '.txt' && fileType !== '.md') {
     return '';
   }
 
-  const isMd = extension === '.md';
+  const isMd = fileType === '.md';
   const text = fs.readFileSync(filePath, 'utf-8');
-  const { title, content } = isMd ? processMarkdown(text) : processTxt(text);
+  const parser = new Parser(text);
+  const { title, content } = isMd ? parser.parseMarkdown() : parser.parseTxt();
 
   const relativePathToRoot = relative
     ? `${path.relative(path.dirname(filePath), input) || '.'}/`
@@ -40,7 +44,7 @@ const processFile = (filePath: string): string => {
     title ?? path.parse(filePath).name,
     !isMd,
     lang,
-    `${relativePathToRoot}${indexCSS}`,
+    `${relativePathToRoot}${indexCSSPath}`,
     `${relativePathToRoot}index.html`
   );
 
@@ -54,7 +58,7 @@ const processFile = (filePath: string): string => {
  * */
 const generateFiles = (pathName: string): string[] => {
   // If path is a file, generate an HTML, if folder, expand the folder
-  const generate = (filePath: string, fileLists: string[]): string[] => {
+  const generate = (filePath: string, generatedFiles: string[]): string[] => {
     try {
       const fileStat = fs.statSync(filePath);
       if (fileStat.isFile()) {
@@ -67,31 +71,33 @@ const generateFiles = (pathName: string): string[] => {
           const file = `${output}${relativePath}${name}.html`;
           logSuccess(file);
 
-          fs.ensureFileSync(file);
-          fs.writeFileSync(file, markup, { flag: 'w' });
-          return fileLists.concat(file);
+          fs.ensureFile(file).then(() => {
+            fs.writeFile(file, markup, { flag: 'w' });
+          });
+          return generatedFiles.concat(file);
         }
-        return fileLists;
+        return generatedFiles;
       }
       if (fileStat.isDirectory()) {
         let files = fs.readdirSync(filePath, { withFileTypes: true });
         files = recursive ? files : files.filter((file) => file.isFile());
 
-        return fileLists.concat(
+        return generatedFiles.concat(
           files
-            .map((file) => generate(path.join(filePath, file.name), fileLists))
+            .map((file) => generate(path.join(filePath, file.name), generatedFiles))
             .reduce((acc, curr) => [...acc, ...curr], [])
         );
       }
-
-      return fileLists;
-    } catch (err) {
-      return fileLists;
+      return generatedFiles;
+    } catch {
+      return generatedFiles;
     }
   };
 
   return generate(pathName, []);
 };
+
+prepare();
 
 let inputPath;
 
@@ -109,8 +115,13 @@ try {
                 .join('\n')}
                 </ul>`;
 
-    const indexMarkup = generateHTML(menu, path.basename(input), true, lang, indexCSS);
-    fs.writeFileSync(`${output}/index.html`, indexMarkup, { flag: 'w' });
+    const indexMarkup = generateHTML(menu, path.basename(input), true, lang, indexCSSPath);
+    fs.writeFile(`${output}/index.html`, indexMarkup, { flag: 'w' }, (error) => {
+      if (error) {
+        logError(`Unable to write index HTML to ${output}/index.html`);
+        console.error(error);
+      }
+    });
   } else {
     throw new Error();
   }
