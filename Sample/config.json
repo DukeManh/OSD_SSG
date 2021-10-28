@@ -1,6 +1,6 @@
 {
   "input": "./Sample",
-  "output": "./dist",
+  "output": "./docs",
   "lang": "en-CA",
   "recursive": true,
   "relative": true,
