@@ -28,6 +28,7 @@
   "homepage": "https://github.com/DukeManh/OSD_SSG#readme",
   "devDependencies": {
     "@types/fs-extra": "^9.0.12",
+    "@types/markdown-it": "^12.2.3",
     "@types/node": "^16.7.13",
     "@types/yargs": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.31.0",
@@ -48,6 +49,7 @@
     "chalk": "^3.0.0",
     "commander": "^8.2.0",
     "fs-extra": "^10.0.0",
+    "markdown-it": "^12.2.0",
     "yargs": "^17.1.1"
   }
 }
