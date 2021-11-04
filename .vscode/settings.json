@@ -3,5 +3,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "liveServer.settings.multiRootWorkspaceName": "OSD_SSG",
+  "liveServer.settings.multiRootWorkspaceName": "OSD_SSG"
 }

@@ -24,27 +24,7 @@ Options:
 
 ## Features
 
-- Accept .txt and .md files (Currently .md only support heading h1-h6, and p)
-
-## Example
-
-Install `ts-node` with:
-
-```
-npm install -g ts-node
-```
-
-exe
-
-```
-ts-node src/index.ts -i Sherlock\ Holmes\ Selected\ Stories\ / -r -e -s src/styles/retro.css
-```
-
-Using config file:
-
-```
-ts-node .\src\index.ts --config .\src\config.json
-```
+- Accept .txt and .md files 
 
 ## Authors
 
