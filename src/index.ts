@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 
 import argv from './argv';
-import Parser from './Parser';
+import Parser from './parser';
 import generateHTML from './generator';
 import { logError, logSuccess } from './utilities';
 
@@ -108,11 +108,11 @@ try {
 
     const menu = `<ul>
               ${fileList
-                .map(
-                  (file) =>
-                    `<li><a href="${path.relative(output, file)}">${path.parse(file).name}</a></li>`
-                )
-                .join('\n')}
+        .map(
+          (file) =>
+            `<li><a href="${path.relative(output, file)}">${path.parse(file).name}</a></li>`
+        )
+        .join('\n')}
                 </ul>`;
 
     const indexMarkup = generateHTML(menu, path.basename(input), true, lang, indexCSSPath);
