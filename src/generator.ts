@@ -1,3 +1,5 @@
+import prettier from 'prettier';
+
 const generateHTML = (
   content: string,
   title: string,
@@ -27,11 +29,9 @@ const generateHTML = (
                     <body>
                       ${body}
                     </body>
-                  </html>`
-    .split(/\n\s+/)
-    .join('\n');
+                  </html>`;
 
-  return markup;
+  return prettier.format(markup, { parser: 'html' });
 };
 
 export default generateHTML;
