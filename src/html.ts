@@ -15,11 +15,9 @@ const generateHTML = (
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/default.min.css">
                 ${title ? ` <title>${title}</title>` : ''}`;
 
-  const body = `
-                ${homeHref ? `<a class="backToHome" href="${homeHref}">Back to home</a>` : ''}
+  const body = `${homeHref ? `<a class="backToHome" href="${homeHref}">Back to home</a>` : ''}
                 ${title && includeHeading ? `<h1 class="text-center">${title}</h1>` : ''}
-                ${content}
-                  `;
+                ${content}`;
 
   const markup = `<!DOCTYPE html>
                   <html lang="${lang}">

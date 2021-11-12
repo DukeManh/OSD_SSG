@@ -1,0 +1,8 @@
+{
+  "input": "./assets",
+  "output": "./build",
+  "lang": "en-CA",
+  "recursive": true,
+  "relative": true,
+  "stylesheet": "./assets/styles/retro.css"
+}

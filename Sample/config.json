@@ -1,8 +1,0 @@
-{
-  "input": "./Sample",
-  "output": "./docs",
-  "lang": "en-CA",
-  "recursive": true,
-  "relative": true,
-  "stylesheet": "./Sample/styles/retro.css"
-}

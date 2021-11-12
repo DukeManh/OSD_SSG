@@ -73,14 +73,14 @@ const argv = yargs
   .alias('help', 'h')
   .version()
   .alias('version', 'v').argv as {
-  input: string;
-  output: string;
-  recursive: boolean;
-  relative: boolean;
-  stylesheet: string;
-  lang: string;
-  _: (string | number)[];
-  $0: string;
-};
+    input: string;
+    output: string;
+    recursive: boolean;
+    relative: boolean;
+    stylesheet: string;
+    lang: string;
+    _: (string | number)[];
+    $0: string;
+  };
 
 export default argv;

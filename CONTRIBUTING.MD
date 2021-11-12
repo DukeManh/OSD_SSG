@@ -30,12 +30,11 @@ ts-node src/index.ts
   -i Sherlock\ Holmes\ Selected\ Stories\ / 
   -r 
   -e 
-  -s src/styles/retro.css
+  -s assets/styles/retro.css
 ```
 
 ## Using config file:
 
 ```
-ts-node .\src\index.ts 
-  --config .\src\config.json
+ts-node ./src/index.ts -c .\assets\config.json
 ```
