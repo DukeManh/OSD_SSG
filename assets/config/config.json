@@ -1,6 +1,6 @@
 {
-  "input": "./assets",
-  "output": "./build",
+  "input": "./assets/text",
+  "output": "build",
   "lang": "en-CA",
   "recursive": true,
   "relative": true,

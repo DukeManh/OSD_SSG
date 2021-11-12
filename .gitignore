@@ -104,3 +104,8 @@ dist
 .tern-port
 
 build/
+
+out/
+
+lib/
+

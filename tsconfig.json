@@ -9,10 +9,10 @@
     ],
     "declaration": true,
     "outDir": "lib",
-    "rootDir": "src",
     "strict": true,
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "esModuleInterop": true,
     "resolveJsonModule": true

@@ -1,36 +1,37 @@
 import MarkdownIt from 'markdown-it';
 import hljs from 'highlight.js';
 
-const md = MarkdownIt({
-  highlight(str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(str, { language: lang }).value;
-      } catch (__) {}
-    }
-
-    return ''; // use external default escaping
-  },
-});
-
 export interface ParsedData {
   content: string;
   title: string | undefined;
 }
 
 class Parser {
-  private rawText: string;
+  public rawText: string;
+
+  public md: MarkdownIt;
 
   constructor(text: string) {
-    this.rawText = text;
+    this.rawText = text.trim();
+    this.md = MarkdownIt({
+      highlight(str, lang) {
+        if (lang && hljs.getLanguage(lang)) {
+          try {
+            return hljs.highlight(str, { language: lang }).value;
+          } catch (__) {}
+        }
+
+        return ''; // use external default escaping
+      },
+    });
   }
 
-  parseMarkdown(): ParsedData {
+  parseMD(): ParsedData {
     let content = '';
     const h1 = /^\s*#\s+(.+)$/gm;
-    const title = h1.exec(this.rawText)?.[1];
+    const title = h1.exec(this.rawText)?.[1].trim();
 
-    content = md.render(this.rawText);
+    content = this.md.render(this.rawText);
 
     return { content, title };
   }
@@ -41,7 +42,7 @@ class Parser {
 
     const titleAndContent = this.rawText.split(/\n\n\n/);
     if (titleAndContent.length >= 2) {
-      [title] = titleAndContent;
+      title = titleAndContent[0].trim();
       content = titleAndContent.slice(1).join('\n\n\n');
     } else {
       [content] = titleAndContent;
@@ -50,7 +51,7 @@ class Parser {
     content = content
       .split(/\r?\n\r?\n/)
       .map((para) => `${para.replace(/\r?\n/g, ' ')}`)
-      .map((para) => `<p>${para}</p>`)
+      .map((para) => (para ? `<p>${para}</p>` : ''))
       .join('\n');
 
     return { title, content };

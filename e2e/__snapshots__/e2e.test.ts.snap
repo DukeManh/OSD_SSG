@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`end to end test no input file path given 1`] = `"Missing required argument: input"`;
+
+exports[`end to end test only set input file path 1`] = `
+"Created 'build/The Naval Treaty.html'
+Created 'build/The Red Headed League.html'"
+`;
+
+exports[`end to end test use both recursive and relative option 1`] = `
+"Created 'build/Markdown/Open Source.html'
+Created 'build/The Naval Treaty.html'
+Created 'build/The Red Headed League.html'
+Created 'build/a/Silver Blaze.html'
+Created 'build/a/b/The Adventure of the Six Napoleans.html'
+Created 'build/c/The Adventure of the Speckled Band.html'"
+`;
+
+exports[`end to end test use config file 1`] = `
+"Created 'build/Markdown/Open Source.html'
+Created 'build/The Naval Treaty.html'
+Created 'build/The Red Headed League.html'
+Created 'build/a/Silver Blaze.html'
+Created 'build/a/b/The Adventure of the Six Napoleans.html'
+Created 'build/c/The Adventure of the Speckled Band.html'"
+`;
+
+exports[`end to end test use invalid css file 1`] = `"'src/index.ts' is not a css file"`;
+
+exports[`end to end test use invalid language  1`] = `"Unsupported HTML language"`;
+
+exports[`end to end test use recursive option 1`] = `
+"Created 'build/Open Source.html'
+Created 'build/Silver Blaze.html'
+Created 'build/The Adventure of the Six Napoleans.html'
+Created 'build/The Adventure of the Speckled Band.html'
+Created 'build/The Naval Treaty.html'
+Created 'build/The Red Headed League.html'"
+`;
+
+exports[`end to end test use relative option 1`] = `
+"Created 'build/The Naval Treaty.html'
+Created 'build/The Red Headed League.html'"
+`;
