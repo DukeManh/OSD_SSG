@@ -68,4 +68,18 @@ describe('end to end test', () => {
     expect(exitCode).toEqual(1);
     expect(stdout).toEqual('');
   });
+
+  test('use input option on a file', async () => {
+    const { stderr, stdout, exitCode } = await run('-i assets/text/The\\ Naval\\ Treaty.txt');
+    expect(stderr).toEqual('');
+    expect(exitCode).toEqual(0);
+    expect(sortConsoleLogs(stdout)).toMatchSnapshot();
+  });
+
+  test('use recursive option on a file', async () => {
+    const { stderr, stdout, exitCode } = await run('-i assets/text/The\\ Naval\\ Treaty.txt -r');
+    expect(stderr).toEqual('');
+    expect(exitCode).toEqual(0);
+    expect(sortConsoleLogs(stdout)).toMatchSnapshot();
+  });
 });
