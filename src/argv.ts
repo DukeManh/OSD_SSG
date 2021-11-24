@@ -47,7 +47,7 @@ const argv = (args: string[] = process.argv.slice(2)): ARGV =>
         describe: 'Custom stylesheet',
         type: 'string',
         requiresArg: true,
-        default: 'src/styles/index.css',
+        default: path.join(__dirname, 'styles/index.css'),
       },
       lang: {
         alias: 'l',
