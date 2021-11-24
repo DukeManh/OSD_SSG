@@ -1,6 +1,6 @@
 {
   "name": "osd_ssg",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Static site generator cli",
   "main": "./lib/src/index.js",
   "bin": {
