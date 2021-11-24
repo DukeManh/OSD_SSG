@@ -4,7 +4,7 @@
   "description": "Static site generator cli",
   "main": "./lib/src/index.js",
   "bin": {
-    "osd_ssg": "./lib/index.js"
+    "osd_ssg": "./lib/src/index.js"
   },
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
