@@ -2,7 +2,7 @@
   "name": "osd_ssg",
   "version": "1.0.3",
   "description": "Static site generator cli",
-  "main": "./lib/index.js",
+  "main": "./lib/src/index.js",
   "bin": {
     "osd_ssg": "./lib/index.js"
   },
