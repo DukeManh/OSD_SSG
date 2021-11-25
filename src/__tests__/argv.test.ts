@@ -1,4 +1,4 @@
-import argv from '../argv';
+import argv, { DefaultArgs } from '../argv';
 
 describe('test command line arguments', () => {
   beforeAll(() => {
@@ -29,11 +29,7 @@ describe('test command line arguments', () => {
   describe('test default options', () => {
     const defaultOptions = {
       input: 'assets',
-      output: 'build',
-      recursive: false,
-      relative: false,
-      stylesheet: 'src/styles/index.css',
-      lang: 'en-CA',
+      ...DefaultArgs,
     };
     test('no additional options', () => {
       expect(parseArgs(['-i', 'assets'])).toEqual(defaultOptions);

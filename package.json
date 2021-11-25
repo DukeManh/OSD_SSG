@@ -2,9 +2,9 @@
   "name": "osd_ssg",
   "version": "1.0.7",
   "description": "Static site generator cli",
-  "main": "./lib/src/index.js",
+  "main": "./lib/index.js",
   "bin": {
-    "osd_ssg": "./lib/src/index.js"
+    "osd_ssg": "./lib/index.js"
   },
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",

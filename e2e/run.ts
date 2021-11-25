@@ -3,7 +3,7 @@ import execa from 'execa';
 
 async function run(...args: string[]): Promise<execa.ExecaReturnValue<string>> {
   try {
-    const result = await execa.command(`node lib/src/index.js ${args.join(' ')}`);
+    const result = await execa.command(`node lib/index.js ${args.join(' ')}`);
     return result;
   } catch (error) {
     return error as execa.ExecaReturnValue<string>;

@@ -13,6 +13,14 @@ export interface ARGV {
   $0: string;
 }
 
+export const DefaultArgs = {
+  output: 'build',
+  recursive: false,
+  relative: false,
+  stylesheet: path.resolve(__dirname, '../assets/styles/index.css'),
+  lang: 'en-CA',
+};
+
 const argv = (args: string[] = process.argv.slice(2)): ARGV =>
   yargs(args)
     .option({
@@ -28,33 +36,33 @@ const argv = (args: string[] = process.argv.slice(2)): ARGV =>
         describe: 'Output folder for generated files',
         type: 'string',
         requiresArg: true,
-        default: 'build',
+        default: DefaultArgs.output,
       },
       recursive: {
         alias: 'r',
         describe: 'Recursively parsed files',
         type: 'boolean',
-        default: false,
+        default: DefaultArgs.recursive,
       },
       relative: {
         alias: 'e',
         describe: 'Maintain relative folder of files',
         type: 'boolean',
-        default: false,
+        default: DefaultArgs.relative,
       },
       stylesheet: {
         alias: 's',
         describe: 'Custom stylesheet',
         type: 'string',
         requiresArg: true,
-        default: path.join(__dirname, 'styles/index.css'),
+        default: DefaultArgs.stylesheet,
       },
       lang: {
         alias: 'l',
         describe: 'HTML language code',
         type: 'string',
         requiresArg: true,
-        default: 'en-CA',
+        default: DefaultArgs.lang,
       },
     })
     .check(({ lang, stylesheet }) => {

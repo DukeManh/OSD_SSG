@@ -15,6 +15,8 @@
       "jest"
     ],
     "esModuleInterop": true,
-    "resolveJsonModule": true
-  }
+    "resolveJsonModule": true,
+  },
+  "include": ["src/*.ts"],
+  "exclude": ["e2e", "src/__tests__"],
 }
