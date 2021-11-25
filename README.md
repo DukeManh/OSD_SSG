@@ -12,19 +12,21 @@
 
 ```
 Options:
+Options:
+  -c, --config      Path to JSON config file                            [string]
   -i, --input       File or folder to be parsed              [string] [required]
-  -o, --output      Output folder for generated files [string] [default: "dist"]
-  -r, --recursive   Recursively parsed files                           [boolean]
-  -e, --relative    Maintain relative folder of files                  [boolean]
-  -s, --stylesheet  Custom stylesheet                                   [string]
+  -o, --output      Output folder                    [string] [default: "build"]
+  -r, --recursive   Recursively parsed files          [boolean] [default: false]
+  -e, --relative    Maintain relative folder of files [boolean] [default: false]
+  -s, --stylesheet  Custom stylesheet   [string] [default: "markdowncss/modest"]
+  -l, --lang        HTML language code               [string] [default: "en-CA"]
   -h, --help        Show help                                          [boolean]
   -v, --version     Show version number                                [boolean]
-  -c,--config        Use default configuration in config file [string]
 ```
 
 ## Features
 
-- Accept .txt and .md files 
+- Accept .txt and .md files
 
 ## Authors
 

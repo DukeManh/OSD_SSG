@@ -33,7 +33,7 @@ const argv = (args: string[] = process.argv.slice(2)): ARGV =>
       },
       output: {
         alias: 'o',
-        describe: 'Output folder for generated files',
+        describe: 'Output folder',
         type: 'string',
         requiresArg: true,
         default: DefaultArgs.output,
